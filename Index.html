@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Online EDITOR for WEB DEVELOPMENT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<Style>
+.btn {
+    width: 100%;
+}
+img[src*="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"] {
+display: none;} 
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+body {
+    height: 100vh;
+}
+.code-area {
+  width: 50%;
+  border-right:10px solid #555;
+    display: inline-block;
+}
+.code-area textarea {
+  resize: none;
+  outline: none;
+  width: 100%;
+  height: 100vh;
+  font-size: 18px;
+  padding: 10px;
+  border: none;
+}
+.preview-area {
+  width: 50%;
+  float: right;
+    display: inline-block;
+}
+.preview-area iframe {
+  width: 100%;
+  height: 100vh;
+  border: 1px solid black;
+}
+a {
+    text-decoration: none;
+    color: black;
+    padding: 0px;
+}
+Input{
+    outline: none;
+    Padding: 10px;
+border: 4px solid black;
+Border-radius: 3px;
+Font-Size: 20px;
+width: 70%;
+margin: 0px;
+box-sizing: border-box;
+float: left;
+}
+ Button{
+    margin: 0px;
+    width: 10%;
+    outline: none;
+    Padding: 10px;
+border: 4px solid black;
+Border-radius: 3px;
+Font-Size: 20px;
+box-sizing: border-box;
+float: left;
+display: inline-block;
+}
+
+.dark-mode {
+    color: white;
+    background-color: #666;
+}
+.rotate {
+    transform: rotateY(180deg);
+}
+</Style>
+</head>
+<body>
+    <div class="btn">
+<input id="inputFileNameToSaveAs" autocapitalize="words" placeholder="Save HTML/CSS/JAVASCRIPT Code"/>
+
+<button onclick="saveTextAsFile()">Save</button>
+
+<button onclick="window.print()">Print</button>
+
+<button onclick="myFunction()" style='font-size: 33px; padding: 2px'><i id="i" class="fa fa-adjust"></i></button>
+</div>
+
+<div class="code-area">
+  <textarea id="htmlCode" autocomplete="on" spellcheck="true" placeholder="Write the Code here" 
+            oninput="showPreview()">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Try it Yourself&lt;/title&gt;
+&lt;style&gt;
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;script&gt;
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>		
+</div>
+<div class="preview-area">
+  <iframe id="preview-window"></iframe>
+</div>
+<Script>
+alert("Use Only HTML/CSS/JAVASCRIPT Code don't use Other languages.");
+function saveTextAsFile()
+{
+	var textToSave = document.getElementById("htmlCode").value;
+	var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+	var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+	var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value;
+
+	var downloadLink = document.createElement("a");
+	downloadLink.download = fileNameToSaveAs;
+	downloadLink.innerHTML = "Download File";
+	downloadLink.href = textToSaveAsURL;
+	downloadLink.onclick = destroyClickedElement;
+	downloadLink.style.display = "none";
+	document.body.appendChild(downloadLink);
+
+	downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+	document.body.removeChild(event.target);
+}
+
+function showPreview(){
+  var htmlCode = document.getElementById("htmlCode").value;
+  var cssCode = "";
+  var jsCode = "";
+  var frame = document.getElementById("preview-window").contentWindow.document;
+  frame.open();
+  frame.write(htmlCode+cssCode+jsCode);
+  frame.close();
+}
+
+function myFunction() {
+   var element = document.getElementById("htmlCode");
+   element.classList.toggle("dark-mode");
+   var x = document.getElementById("i");
+   x.classList.toggle("rotate");
+}
+</Script>
+</body>
+</html>
